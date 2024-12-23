@@ -22,9 +22,7 @@ jobs:
         terraform_version: 1.5.0
 
     - name: Set up Google Cloud credentials
-      run: |
-    echo "${{ secrets.GCP_CREDENTIALS }}" > credentials.json
-    cat credentials.json
+      run:  echo "${{ secrets.GCP_CREDENTIALS }}" > credentials.json
 
 - name: Debug Google Cloud credentials
   run: |
