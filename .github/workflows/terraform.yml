@@ -1,0 +1,32 @@
+name: Deploy Terraform
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [dev, staging, prod]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
+
+    - name: Initialize Terraform
+      run: terraform -chdir=environments/${{ matrix.environment }} init
+
+    - name: Plan Terraform
+      run: terraform -chdir=environments/${{ matrix.environment }} plan -var-file=../../shared.tfvars
+
+    - name: Apply Terraform
+      if: github.event_name == 'push'
+      run: terraform -chdir=environments/${{ matrix.environment }} apply -auto-approve -var-file=../../shared.tfvars
