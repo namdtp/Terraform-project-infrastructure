@@ -13,6 +13,9 @@ jobs:
         environment: [dev, staging, prod]
 
     steps:
+
+
+    
     - name: Checkout code
       uses: actions/checkout@v3
 
@@ -22,17 +25,14 @@ jobs:
         terraform_version: 1.5.0
 
     - name: Set up Google Cloud credentials
-      run: |
-        echo "${{ secrets.GCP_CREDENTIALS }}" | sed 's/\\n/\
-/g' > credentials.json
-
-    - name: Verify credentials.json
-      run: cat credentials.json
+      run: echo "${{ secrets.GCP_CREDENTIALS }}" > credentials.json
 
     - name: Initialize Terraform
       run: terraform -chdir=environments/${{ matrix.environment }} init
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
+
+
 
     - name: Plan Terraform
       run: terraform -chdir=environments/${{ matrix.environment }} plan -var-file=../../shared.tfvars
