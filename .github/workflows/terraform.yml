@@ -21,8 +21,26 @@ jobs:
       with:
         terraform_version: 1.5.0
 
-    - name: Initialize Terraform
-      run: terraform -chdir=environments/${{ matrix.environment }} init
+    - name: Set up Google Cloud credentials
+      run: |
+    echo "${{ secrets.GCP_CREDENTIALS }}" > credentials.json
+    cat credentials.json
+
+- name: Debug Google Cloud credentials
+  run: |
+    echo "Checking GOOGLE_APPLICATION_CREDENTIALS..."
+    echo $GOOGLE_APPLICATION_CREDENTIALS
+    ls -l $(dirname $GOOGLE_APPLICATION_CREDENTIALS)
+    cat $GOOGLE_APPLICATION_CREDENTIALS || echo "File is invalid or missing"
+  env:
+    GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
+
+
+    - name: Initialize Terraform with debug
+  run: terraform -chdir=environments/${{ matrix.environment }} init -input=false -no-color -lock=false -upgrade
+  env:
+    GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
+
 
     - name: Plan Terraform
       run: terraform -chdir=environments/${{ matrix.environment }} plan -var-file=../../shared.tfvars
