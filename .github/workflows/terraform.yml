@@ -31,8 +31,7 @@ jobs:
 
     # Bước 4: Initialize Terraform with debug
     - name: Initialize Terraform with debug
-      run: terraform -chdir=environments/${{ matrix.environment }} init \
-            -input=false -no-color -lock=false -upgrade
+      run: terraform -chdir=environments/${{ matrix.environment }} init
       env:
         GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
 
