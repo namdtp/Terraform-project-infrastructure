@@ -30,7 +30,7 @@ jobs:
     - name: Initialize Terraform
       run: terraform -chdir=environments/${{ matrix.environment }} init
       env:
-      GCP_CREDENTIALS: ${{ github.workspace }}/credentials.json
+        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
 
 
 
