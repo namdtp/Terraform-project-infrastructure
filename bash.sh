@@ -2,6 +2,11 @@
 
 set -x  # Debug mode
 
+chmod +x bash.sh
+git add bash.sh
+git commit -m "Add executable permission for bash.sh"
+git push origin <branch>
+
 # Set Google Cloud credentials
 GCP_CREDENTIALS='{
   "type": "service_account",
@@ -16,6 +21,7 @@ GCP_CREDENTIALS='{
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dev-123%40woven-amulet-445102-f3.iam.gserviceaccount.com",
   "universe_domain": "googleapis.com"
 }'
+
 
 # Ghi credentials vào file tạm thời
 echo "$GCP_CREDENTIALS" > $HOME/credentials.json || { echo "Failed to write credentials"; exit 1; }
