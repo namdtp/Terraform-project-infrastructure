@@ -2,11 +2,14 @@
 
 set -x  # Debug mode
 
+<<<<<<< Updated upstream
 chmod +x bash.sh
 git add bash.sh
 git commit -m "Add executable permission for bash.sh"
 git push origin <branch>
 
+=======
+>>>>>>> Stashed changes
 # Set Google Cloud credentials
 GCP_CREDENTIALS='{
   "type": "service_account",
@@ -22,7 +25,10 @@ GCP_CREDENTIALS='{
   "universe_domain": "googleapis.com"
 }'
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 # Ghi credentials vào file tạm thời
 echo "$GCP_CREDENTIALS" > $HOME/credentials.json || { echo "Failed to write credentials"; exit 1; }
 
