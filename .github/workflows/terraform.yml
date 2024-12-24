@@ -25,9 +25,10 @@ jobs:
 
     # Bước 3: Set up Google Cloud credentials
     - name: Set up Google Cloud credentials
-      run: echo "${{ secrets.GCP_CREDENTIALS }}" > $GITHUB_WORKSPACE/credentials.json
+      run: echo "${{ secrets.GCP_CREDENTIALS }}" > $HOME/credentials.json
       env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
+        GOOGLE_APPLICATION_CREDENTIALS: $HOME/credentials.json
+
 
     # Bước 4: Initialize Terraform with debug
     - name: Initialize Terraform with debug
