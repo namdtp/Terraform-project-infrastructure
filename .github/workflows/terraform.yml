@@ -25,4 +25,4 @@ jobs:
 
     # Bước 3: Run Bash script
     - name: Run Bash script
-      run: ./deploy.sh ${{ matrix.environment }}
+      run: ./bash.sh ${{ matrix.environment }}
