@@ -23,28 +23,6 @@ jobs:
       with:
         terraform_version: 1.5.0
 
-    # Bước 3: Set up Google Cloud credentials
-    - name: Set up Google Cloud credentials
-      run: echo "${{ secrets.GCP_CREDENTIALS }}" > $HOME/credentials.json
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: $HOME/credentials.json
-
-
-    # Bước 4: Initialize Terraform with debug
-    - name: Initialize Terraform with debug
-      run: terraform -chdir=environments/${{ matrix.environment }} init
-      env:
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
-
-    # Bước 5: Plan Terraform
-    - name: Plan Terraform
-      run: terraform -chdir=environments/${{ matrix.environment }} plan \
-            -var-file=../../shared.tfvars \
-            -input=false
-
-    # Bước 6: Apply Terraform
-    - name: Apply Terraform
-      if: github.event_name == 'push'
-      run: terraform -chdir=environments/${{ matrix.environment }} apply \
-            -auto-approve \
-            -var-file=../../shared.tfvars
+    # Bước 3: Run Bash script
+    - name: Run Bash script
+      run: ./deploy.sh ${{ matrix.environment }}
