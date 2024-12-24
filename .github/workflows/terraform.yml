@@ -25,4 +25,8 @@ jobs:
 
     # Bước 3: Run Bash script
     - name: Run Bash script
+<<<<<<< Updated upstream
       run: ./deploy.sh ${{ matrix.environment }}
+=======
+      run: ./deploy.sh ${{ matrix.environment }}
+>>>>>>> Stashed changes
