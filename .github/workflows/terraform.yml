@@ -17,6 +17,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # Bước 2: Set executable permission for bash.sh
+    - name: Set executable permission
+      run: chmod +x ./bash.sh
+      
     # Bước 2: Setup Terraform
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v2
